@@ -201,11 +201,20 @@ def kill_tasks_psutil(victims):
     use this routine"""
     import psutil
     for proc in psutil.process_iter():
-        pdict = proc.as_dict(attrs=['environ', 'status'])
-        if pdict['status'] == psutil.STATUS_ZOMBIE:
-            continue
-        if pdict['environ'] is not None:
-            if pdict['environ'].get('SIM_VEHICLE_SESSION') == os.environ['SIM_VEHICLE_SESSION']:
+        try:
+            pdict = proc.as_dict(attrs=['environ', 'status'])
+            if pdict['status'] == psutil.STATUS_ZOMBIE:
+                continue
+            if pdict['environ'] is not None:
+                if pdict['environ'].get('SIM_VEHICLE_SESSION') == os.environ['SIM_VEHICLE_SESSION']:
+                    proc.kill()
+        except AttributeError:
+            # psutil version doesn't expose environment
+            # fallback on process name
+            pdict = proc.as_dict(attrs=['name', 'status'])
+            if pdict['status'] == psutil.STATUS_ZOMBIE:
+                continue
+            if pdict['name'] in victims:
                 proc.kill()
 
 
