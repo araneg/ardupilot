@@ -9,7 +9,7 @@
        motion_multiplier="1"
        {% endif %}
        time_warp="1"
-       enable_gui="true"
+       enable_gui="{% if gui %}{{ gui }}{% else %}{{ true }}{% endif %}"
        network_gui="false"
        start_paused="false"/>
 

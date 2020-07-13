@@ -1304,7 +1304,7 @@ if cmd_opts.frame in ['scrimmage-plane', 'scrimmage-copter']:
         }
     if cmd_opts.scrimmage_args is not None:
         scrimmage_args = cmd_opts.scrimmage_args.split(',')
-        global_opts = ['terrain']
+        global_opts = ['terrain', 'gui']
         instance_opts = ['motion_model', 'visual_model']
         for arg in scrimmage_args:
             arg = arg.split('=', 2)
