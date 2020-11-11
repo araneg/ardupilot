@@ -679,7 +679,7 @@ def start_vehicle(binary, opts, stuff, spawns=None):
         if spawns is not None:
             c.extend(["--home", spawns[i]])
         os.chdir(i_dir)
-        run_in_terminal_window(cmd_name, cmd + c)
+        run_in_terminal_window(cmd_name, c + cmd)
     os.chdir(old_dir)
 
 
